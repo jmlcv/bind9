@@ -1,0 +1,40 @@
+options {
+	directory "/var/cache/bind";
+
+	// If there is a firewall between you and nameservers you want
+	// to talk to, you may need to fix the firewall to allow multiple
+	// ports to talk.  See http://www.kb.cert.org/vuls/id/800113
+
+	// If your ISP provided one or more IP addresses for stable 
+	// nameservers, you probably want to use them as forwarders.  
+	// Uncomment the following block, and insert the addresses replacing 
+	// the all-0's placeholder.
+
+	// // // // // // // // // // // // // // // // // // // // // // // //
+	//								  // //	
+	// PLEASE DON'T SET FORWARDERS BELLOW                             // // 
+	// WE WILL CONFIGURE VIEWS, SO ENABLE FORWARDING THERE, IF NEEDED // //
+	//								  // //
+	// // // // // // // // // // // // // // // // // // // // // // // //
+	// forwarders {
+	// 	0.0.0.0;
+	// };
+
+	//========================================================================
+	// If BIND logs error messages about the root key being expired,
+	// you will need to update your keys.  See https://www.isc.org/bind-keys
+	//========================================================================
+        // DNSSEC Validation is performed by caching name servers 
+	// Enable per view, if needed.
+	// dnssec-validation auto;
+
+	// Leave auth-nxdomain as 'no' to comply with RFC1035.
+	// Meaning: When replying a query with NXDOMAIN, don't set the Authoritavely bit (AA)
+	auth-nxdomain no;
+
+	// listen-on-v6 not exposed to ansible at this time
+	// may be defined only in the option section
+	// may be defined multiple times
+	listen-on-v6 { any; };
+};
+

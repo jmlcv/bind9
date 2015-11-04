@@ -1,0 +1,17 @@
+---
+# Install the Bind (Named) Service if the user requested
+- name: Install Bind (Named) Server
+  sudo: yes
+  when: (installbind == "yes")
+  apt: name=bind9 state=present update_cache=yes cache_valid_time=3600
+  tags: 
+    - installBind
+
+# To avoid misusage, even for a short amount of time, let's stop the bind service
+# Once a secure config is applied, we will start it
+- name: Stop the Bind (Named) Server until securely configured
+  sudo: yes
+  when: (installbind == "yes")
+  tags:
+    - installBind
+  service: name=bind9 state=stopped

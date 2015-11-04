@@ -1,2 +1,5 @@
 ---
 # tasks file for bind9
+
+# If variable is set, will install Bind; otherwise will skip it
+- include: installbind.yml 

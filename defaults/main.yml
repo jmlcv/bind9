@@ -1,4 +1,4 @@
 ---
 # defaults file for bind9
-installbind: "no"
-confignamedoptions: "yes"
+installbind: no
+confignamedoptions: yes

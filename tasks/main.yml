@@ -3,4 +3,5 @@
 
 # If variable is set, will install Bind; otherwise will skip it
 - include: installbind.yml 
+# Bind installed, let's move and start configuring BIND
 - include: configureoptions.yml

@@ -2,16 +2,16 @@
 # Install a proper named.conf.options, but backs up the original
 - name: Configure /etc/bind/named.conf.options
   sudo: yes
-  when: (confignamedoptions == "yes")
+  when: confignamedoptions 
   template: src=etc/bind/named.conf.options dest=/etc/bind/named.conf.options owner=root group=root mode=0644 backup=yes
   tags: 
     - configNamedOptions
 
 # To avoid misusage, even for a short amount of time, let's stop the bind service
 # Once a secure config is applied, we will start it
-#- name: Stop the Bind (Named) Server until securely configured
-#  sudo: yes
-#  when: (installbind == "yes")
-#  tags:
-#    - installBind
-#  service: name=bind9 state=stopped
+- name: Stop the Bind (Named) Server until securely configured
+  sudo: yes
+  when: installbind 
+  tags:
+    - installBind
+  service: name=bind9 state=stopped

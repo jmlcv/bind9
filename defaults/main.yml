@@ -1,4 +1,5 @@
 ---
 # defaults file for bind9
 installbind: no
+confignamedconf: yes
 confignamedoptions: yes

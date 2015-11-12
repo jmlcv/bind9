@@ -5,4 +5,5 @@
 - include: installbind.yml 
 # Bind installed, let's move and start configuring BIND
 - include: configurenamedconf.yml
+- include: configureacls.yml
 - include: configureoptions.yml

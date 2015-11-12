@@ -4,3 +4,4 @@ installbind: no
 confignamedconf: yes
 confignamedoptions: yes
 confignamedacl: yes
+confignamedviews: yes

@@ -1,0 +1,9 @@
+---
+# Adds the view file based on the view list associated per group_vars
+- name: Add the view files 
+  sudo: yes
+  when: confignamedviews 
+  template: src=etc/bind/views.conf dest=/etc/bind/named.views.conf owner=root group=bind mode=0644 backup=yes
+  tags: 
+    - configNamedViews
+

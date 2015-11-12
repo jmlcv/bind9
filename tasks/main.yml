@@ -7,3 +7,4 @@
 - include: configurenamedconf.yml
 - include: configureacls.yml
 - include: configureoptions.yml
+- include: configureviews.yml

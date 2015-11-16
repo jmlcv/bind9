@@ -3,7 +3,7 @@
 - name: Add the Named ACLs file /etc/bind/named.acls.conf
   sudo: yes
   when: confignamedacl 
-  template: src=etc/bind/named.acls.conf dest=/etc/bind/named.acls.conf owner=root group=bind mode=0644 backup=yes
+  template: src=etc/bind/named.acls.conf dest=/etc/bind/named.conf.acls owner=root group=bind mode=0644 backup=yes
   tags: 
     - configNamedAcl
 

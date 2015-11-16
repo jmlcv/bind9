@@ -7,3 +7,8 @@
   tags: 
     - configNamedViews
 
+# Copies the named.conf.default-zones file
+- name: Add the default zones files
+  sudo: yes
+  when: confignamedviews
+  copy: src=etc/bind/named.conf.default-zones dest=/etc/bind/named.conf.default-zones owner=root group=bind mode=644 backup=yes

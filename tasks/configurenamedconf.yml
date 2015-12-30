@@ -2,7 +2,6 @@
 # Install a proper named.conf, but backs up the original
 # We will do so, because we will add VIEWS, and many of the configs should be done per view
 - name: Configure named.conf
-  sudo: yes
   when: bind9_confignamedconf 
   template: src=etc/bind/named.conf dest=/etc/bind/named.conf owner=root group=bind mode=0644 backup=yes
   tags: 

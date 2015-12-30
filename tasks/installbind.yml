@@ -1,7 +1,6 @@
 ---
 # Install the Bind (Named) Service if the user requested
 - name: Install Bind (Named) Server
-  sudo: yes
   when: bind9_installbind 
   apt: name=bind9 state=present update_cache=yes cache_valid_time=3600
   tags: 

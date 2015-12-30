@@ -1,7 +1,6 @@
 ---
 # Install a proper named.conf.options, but backs up the original
 - name: Configure named.conf.options
-  sudo: yes
   when: bind9_confignamedoptions 
   template: src=etc/bind/named.conf.options dest=/etc/bind/named.conf.options owner=root group=root mode=0644 backup=yes
   tags: 

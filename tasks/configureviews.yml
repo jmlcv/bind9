@@ -1,7 +1,6 @@
 ---
 # Adds the view file based on the view list associated per group_vars
 - name: Add the Bind View files 
-  sudo: yes
   when: bind9_confignamedviews 
   template: src=etc/bind/views.conf dest=/etc/bind/named.conf.views owner=root group=bind mode=0644 backup=yes
   tags:
@@ -13,7 +12,6 @@
 # Later on, the bellow file will need to be moved to templates, since it contains hard coded file paths
 # Copies the named.conf.default-zones file
 - name: Add the default zones files
-  sudo: yes
   when: bind9_confignamedviews
   tags:
     - configNamedViews
@@ -25,7 +23,6 @@
 # Now let's copy the default zone files mentioned by the file above, named.conf.default-zones
 # When the 'dest' parameter bellow becomes dynamic, make sure to reflect that on 'named.conf.default-zones' contents
 - name: Populates the default zone config files
-  sudo: yes
   when: bind9_confignamedviews
   tags:
     - configNamedViews
@@ -37,7 +34,6 @@
 # Creates the directories to accomodate zone files per view.
 # Depending on bind role (master or slave), the directorie differs based on variable bind9_views_dir
 - name: Creates the view directories to hold zone data
-  sudo: yes
   when: bind9_confignamedviews
   tags:
     - configNamedViews
@@ -51,7 +47,6 @@
 # This file loads the zones data for each of it's views
 # We won't override the file if it exists - Important since in this version, zone content is not managed by an ansible task or role
 - name: Creates the named.conf.view-{name}.conf
-  sudo: yes
   when: bind9_confignamedviews
   tags:
     - configNamedViews

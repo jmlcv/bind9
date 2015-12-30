@@ -2,5 +2,4 @@
 # handlers file for bind9
 - name: restart bind9
   service: name=bind9 state=restarted
-  sudo: yes
 

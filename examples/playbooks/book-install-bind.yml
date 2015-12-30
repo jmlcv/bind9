@@ -1,0 +1,14 @@
+# Production DNS Servers
+- hosts: prodservers
+  remote_user: ubuntu
+  sudo: yes
+  roles:
+    - { role: bind9, installbind: no }
+
+# Development Servers
+- hosts: devservers
+  remote_user: ubuntu
+  sudo: yes
+  roles:
+    - { role: bind9 }
+

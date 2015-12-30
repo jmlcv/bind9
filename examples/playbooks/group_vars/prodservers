@@ -1,0 +1,7 @@
+---
+BIND_VIEWS:
+  # External View
+  - { view_name: external, match_client_acl: "everybody;", recursion: "no", allow_recursion: "none;" }
+  # Internal View
+  - { view_name: internal, match_client_acl: "internal;", recursion: "yes", allow_recursion: "any;" }
+

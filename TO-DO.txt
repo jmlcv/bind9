@@ -1,0 +1,9 @@
+# List of things I would like to do:
+
+- Add a field to control the 'version' information
+- Handle keys for dynamic updates
+- Handle keys to be used by the RNDC
+- Handle DNSSEC material
+
+# Feel free to ask for or improve this material
+

@@ -1,41 +1,80 @@
-Role Name
+BIND9
 =========
 
-A brief description of the role goes here.
+This role install and configures ISC BIND and configures it in a way that VIEWS are Supported.
+For more info on BIND Views, you may refer to https://kb.isc.org/article/AA-00851/0/Understanding-views-in-BIND-9-by-example.html
+
+So far this role is only working for Ubuntu 14.04, but I intent to support more versions of this O.S., as well as other distros.
+
+As of right now, this role will install and configure the BIND Name Server, but won't let you manage resource records. I plan to develop a new role for that. If you believe it would be helpfull, please let me know.
+
+Please, feel free to let me know if you like it, and if you would like more stuff on this role.
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
-
-- sudo access to install bind and perform file updates
+Nothing specific so Far.
+I have tested against Ubuntu 14.04, and ansible used was on version 1.93.
 
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+- bind9_installbind : (yes|no) Variable that controls whether the task to install Bind will be performed or skipped. In your group section on iventory file, you can use it to speed things up.
+- bind9_confignamedconf : (yes|no) Variable that controls whether named.conf will be touched. You can skip it to improve performance.
+- bind9_confignamedoptions : (yes|no) Variable that controls whether the Options file will be touched.
+- bind9_confignamedacl : (yes|no) Variable that controls whether the ACLs file will be touched.
+- bind9_confignamedviews : (yes|no) Variable that controls whether the list of dictionaries for BIND Views will be parsed. All files and directories required to organize zone data per view is handled.
+- bind9_role : (master|slave) Variable that is used to control whether the server will be primary or secondary; For the example zone data, the 'type' section will say master, and for slave servers, 'type' will be slave and the masters directive is added. Also controls where zone data will be stored. By default, for master servers, it will be /etc/bind/view-$view_name/ and for slave servers, the directory will be /var/cache/bind/view-$view_name. Those directories are properly configure by default in APPARMOR
+
+
 
 Dependencies
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+None in particular so far.
 
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+# Playbook example START
 
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+# Production DNS Servers
+- hosts: prodservers
+  remote_user: ubuntu
+  sudo: yes
+  roles:
+    - { role: bind9, installbind: no }
+
+# Development Servers
+- hosts: devservers
+  remote_user: ubuntu
+  sudo: yes
+  roles:
+    - { role: bind9 }
+
+# Playbook example STOP
+
+Group Variables
+---------------
+
+# group prodservers Example START
+
+---
+BIND_VIEWS:
+  # External View
+  - { view_name: external, match_client_acl: "everybody;", recursion: "no", allow_recursion: "none;" }
+  # Internal View
+  - { view_name: internal, match_client_acl: "internal;", recursion: "yes", allow_recursion: "any;" }
+
+# group prodservers Example STOP
 
 License
 -------
 
-BSD
+APACHE
 
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+Jose Manuel Valente - jmlcv@yahoo.com

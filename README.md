@@ -1,7 +1,7 @@
 BIND9
 =========
 
-This role install and configures ISC BIND and configures it in a way that VIEWS are Supported.
+Ansible role install and configures ISC BIND and configures it in a way that VIEWS are Supported.
 For more info on BIND Views, you may refer to https://kb.isc.org/article/AA-00851/0/Understanding-views-in-BIND-9-by-example.html
 
 So far this role is only working for Ubuntu 14.04, but I intent to support more versions of this O.S., as well as other distros.

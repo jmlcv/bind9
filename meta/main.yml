@@ -1,7 +1,7 @@
 ---
 galaxy_info:
-  author: Jose Manuel Valente  jmlcv@yahoo.com
-  description: A role to install and configure ISC Bind DNS Name Server. You can use this role to hosts several VIEWS. You may refer to https://kb.isc.org/article/AA-00851/0/Understanding-views-in-BIND-9-by-example.html to understand VIEWS. 
+  author: Jose Manuel Valente
+  description: A role to install and configure ISC Bind DNS Name Server.
   company: Agility Networks    http://www.agilitynetworks.com.br
   # If the issue tracker for your role is not on github, uncomment the
   # next line and provide a value

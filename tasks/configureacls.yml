@@ -6,4 +6,6 @@
   template: src=etc/bind/named.acls.conf dest=/etc/bind/named.conf.acls owner=root group=bind mode=0644 backup=yes
   tags: 
     - configNamedAcl
+  notify:
+    - restart bind9
 

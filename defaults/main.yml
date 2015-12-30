@@ -1,7 +1,26 @@
 ---
 # defaults file for bind9
-installbind: no
+installbind: yes
 confignamedconf: yes
 confignamedoptions: yes
 confignamedacl: yes
 confignamedviews: yes
+
+# Role of the bind name server - defaults to slave, just override for the master
+# Recommended modification - set the variable in the inventory file
+# For each environment you have, only one master should be defined
+# Defaulting to slave 'cause you must have 1 master and N slaves...
+bind9_role: slave
+
+# Default Directories
+bind9_base_config_dir: /etc/bind
+
+# Base directory for view file will be dynamically loaded
+# See vars/slave.yml and vars/master.yml
+# File used depending on the bind9_role variable
+
+# Default view to create - It will be used if not otherwise specified
+BIND_VIEWS:
+  # Internal View
+  - { view_name: internal, match_client_acl: "internal;", recursion: "yes", allow_recursion: "any;" }
+

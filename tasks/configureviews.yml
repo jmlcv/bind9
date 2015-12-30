@@ -4,11 +4,62 @@
   sudo: yes
   when: confignamedviews 
   template: src=etc/bind/views.conf dest=/etc/bind/named.conf.views owner=root group=bind mode=0644 backup=yes
-  tags: 
+  tags:
     - configNamedViews
+  notify:
+    - restart bind9
 
+
+# Later on, the bellow file will need to be moved to templates, since it contains hard coded file paths
 # Copies the named.conf.default-zones file
 - name: Add the default zones files
   sudo: yes
   when: confignamedviews
+  tags:
+    - configNamedViews
   copy: src=etc/bind/named.conf.default-zones dest=/etc/bind/named.conf.default-zones owner=root group=bind mode=644 backup=yes
+  notify:
+    - restart bind9
+
+
+# Now let's copy the default zone files mentioned by the file above, named.conf.default-zones
+# When the 'dest' parameter bellow becomes dynamic, make sure to reflect that on 'named.conf.default-zones' contents
+- name: Populates the default zone config files
+  sudo: yes
+  when: confignamedviews
+  tags:
+    - configNamedViews
+  copy: src=etc/bind/default_zone_files/ dest=/etc/bind/ owner=root group=bind mode=644 backup=yes
+  notify:
+    - restart bind9
+
+
+# Now let's populate some variables....
+- include_vars: "{{ bind9_role }}.yml"
+  
+# Creates the directories to accomodate zone files per view.
+# Depending on bind role (master or slave), the directorie differs based on variable bind9_views_dir
+- name: Creates the view directories to hold zone data
+  sudo: yes
+  when: confignamedviews
+  tags:
+    - configNamedViews
+  file: path={{ bind9_views_dir }}/view-{{item.view_name}} state=directory owner=root group=bind mode=0644
+  with_items: "{{BIND_VIEWS}}"
+  notify:
+    - restart bind9
+
+
+# Now let's create the file named.conf.view-{view_name}.conf
+# This file loads the zones data for each of it's views
+# We won't override the file if it exists - Important since in this version, zone content is not managed by an ansible task or role
+- name: Creates the named.conf.view-{name}.conf
+  sudo: yes
+  when: confignamedviews
+  tags:
+    - configNamedViews
+  template: src=etc/bind/named.conf.viewname.conf dest={{ bind9_base_config_dir }}/named.conf.view-{{item.view_name}}.conf owner=root group=bind mode=0644 force=no
+  with_items: "{{BIND_VIEWS}}"
+  notify:
+    - restart bind9
+

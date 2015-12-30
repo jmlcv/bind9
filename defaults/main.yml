@@ -1,10 +1,10 @@
 ---
 # defaults file for bind9
-installbind: yes
-confignamedconf: yes
-confignamedoptions: yes
-confignamedacl: yes
-confignamedviews: yes
+bind9_installbind: yes
+bind9_confignamedconf: yes
+bind9_confignamedoptions: yes
+bind9_confignamedacl: yes
+bind9_confignamedviews: yes
 
 # Role of the bind name server - defaults to slave, just override for the master
 # Recommended modification - set the variable in the inventory file

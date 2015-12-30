@@ -1,0 +1,4 @@
+---
+# Now let's populate some variables....
+- include_vars: "{{ bind9_role }}.yml"
+
